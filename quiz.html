@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Викторина</title>
+    <link rel="stylesheet" href="quiz.css">
+ 
+</head>
+<body>
+    <div id="Viktorina">
+        <div class="DivImg">
+            <img src="" alt="" id="QImg">
+        </div>
+        <div>
+            <h2 id="Q"></h2>
+        </div>
+        <div class="Answers">
+            <button id="Ans1" onclick="Answered(1)"></button>
+            <button id="Ans2" onclick="Answered(2)"></button>                                                                                                                                                                           
+            <button id="Ans3" onclick="Answered(3)"></button>
+            <button id="Ans4" onclick="Answered(4)"></button>
+
+        </div>
+        <div>
+            <!-- div>button#Next -->
+            <button id="Next" onclick="NextQuestion()">далее</button>
+            <button class="container" id="asd"></button>
+        </div>
+    </div>
+ 
+ 
+    <script>
+
+asd.onclick = () => {
+            document.location.reload();
+        }
+        var wasAns = false, currentQuestion = 0, questions = [], rightAns = 0;
+ 
+        function Question(question, manyAns, correctAns, img){
+            this.question = question;
+            this.manyAns = manyAns;
+            this.correctAns = correctAns;
+            this.img = img;
+        }
+
+        var commonQuestion = 'Как зовут этого персонажа?'
+        questions.push(new Question(commonQuestion, ['Артур Шелби', 'Томас Шелби', 'Руби Шелби', 'Финн Шелби'], 2, 'Peaky blindes/tomas.jpg'));
+        questions.push(new Question(commonQuestion, ['Эдгар', 'Финн Шелби', 'Джон Шелби', 'Артур Шелби'], 4, 'Peaky blindes/Артур Шелби.jpg'));
+        questions.push(new Question(commonQuestion, ['Эйда Торн', 'Лиззи Шелби', 'Полли Грей', 'Джон Шелби'], 3, 'Peaky blindes/тетя полли.jpg'));
+        questions.push(new Question(commonQuestion, ['Миссис Шелби', 'Освальд Мосли', 'Джон Шелби', 'Майкл Грей'], 4, 'Peaky blindes/Майкл.jpg'));
+        questions.push(new Question(commonQuestion, ['Патрик Бэйтмен', 'Освальд Мосли', 'Билли Кимбер', 'Легенда'], 1, 'Peaky blindes/Патрик Бэйтменjpg.jpg'));
+        questions.push(new Question(commonQuestion, ['Артур Шелби-старший', 'Альфи Соломонс', 'Лука Чангретта', 'Чарльз Шелби'], 3, 'Peaky blindes/Лука.jpg'));
+
+
+        function fillData(question){
+            Q.innerHTML = question.question;
+            Ans1.innerHTML = question.manyAns[0];
+            Ans2.innerHTML = question.manyAns[1];
+            Ans3.innerHTML = question.manyAns[2];
+            Ans4.innerHTML = question.manyAns[3];
+            QImg.src = question.img;
+        }
+ 
+
+
+        function clearData() {
+            Ans1.innerHTML = '';
+            for (var i=1; i <= 4; i++){
+                var btn = document.getElementById('Ans' + i);
+                btn.style.backgroundColor = 'white';
+                btn.innerHTML = '';
+                
+            }
+            QImg.src = '';
+            
+        }
+        function Answered(num) {
+            if (wasAns) return;
+            var currQ = questions[currentQuestion];
+            var currBtn = document.getElementById('Ans' + num)
+            if (currQ.correctAns == num){
+                currBtn.style.backgroundColor = 'green';
+                rightAns++;
+            }
+            else{
+                currBtn.style.background = 'red';
+                
+            }
+            wasAns = true;
+            
+        }
+        function NextQuestion(){
+            if (!wasAns){
+                alert('я как томас шелби с груустью так и шел бы');
+            } else{
+                if (currentQuestion + 1 < questions.length){
+
+            clearData();
+                    currentQuestion++;
+                    fillData(questions[currentQuestion]);
+                }else{
+                    Viktorina.style.display = "none";
+                    alert('Вы ответили на ' + rightAns + ' из ' + questions.length);
+                }
+                wasAns = false;
+
+                }
+            }
+        
+        fillData(questions[currentQuestion]);
+
+    </script>
+
+    
+</body>
+</html>
+```

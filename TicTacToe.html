@@ -1,0 +1,126 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>xo</title>
+    <style>
+        table{
+            border: 20px black solid;
+            padding: 5px;
+            height: 50%;
+            width: 50%;
+            margin: 0 auto;
+
+        }
+        td{
+            border: 10px #2c2c2c solid;
+            text-align: center;
+            font-size: 540%;
+            padding: 5px;
+            height: 250px;
+            width: 300px;
+            color: brown;
+            font-family: sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <tr>
+            <td onclick="set(this)"></td>
+            <td onclick="set(this)"></td>
+            <td onclick="set(this)"></td>
+        </tr>
+        <tr>
+            <td onclick="set(this)"></td>
+            <td onclick="set(this)"></td>
+            <td onclick="set(this)"></td>
+        </tr>
+        <tr>
+            <td onclick="set(this)"></td>
+            <td onclick="set(this)"></td>
+            <td onclick="set(this)"></td>
+        </tr>
+    </table>
+    <script>
+        var isWin = false, xTurn = true, emptyCells = 9;
+
+        function set(cell) {
+            if (isWin) {
+                var ans = confirm('Хотите сыграть еще?');
+                if (ans) {
+                    document.location.reload();//обновить страницу
+                }
+            } else if (cell.innerText == "") {
+                //можем ставить
+                if (xTurn) {
+                    cell.innerText = 'X';
+                } else {
+                    cell.innerText = 'O';
+                }
+                emptyCells--;//уменьшаю число пустых клеток
+                xTurn = !xTurn;//меняем очередь
+                checkWinner();//вызов проверки победителя
+            } else {
+                //клетка заполнена
+                alert('Клетка уже заполнена!');
+            }
+        }
+
+        function checkWinner() {
+            var cells = document.getElementsByTagName('td');
+            var cellsText = [];
+            var whoWon;
+
+            //мы берем из каждой ячейки текст
+            for (const cell of cells) {
+                cellsText.push(cell.innerText);
+            }
+
+            if (cellsText[0] == cellsText[1] &&
+                cellsText[1] == cellsText[2] && cellsText[0] != '') {
+                isWin = true;
+                whoWon = cellsText[0];
+            } else if (cellsText[3] == cellsText[4] &&
+                cellsText[4] == cellsText[5] && cellsText[3] != '') {
+                isWin = true;
+                whoWon = cellsText[3];
+            } else if (cellsText[6] == cellsText[7] &&
+                cellsText[7] == cellsText[8] && cellsText[6] != '') {
+                isWin = true;
+                whoWon = cellsText[6];
+            } else if (cellsText[0] == cellsText[3] &&
+                cellsText[3] == cellsText[6] && cellsText[0] != '') {
+                isWin = true;
+                whoWon = cellsText[0];
+            } else if (cellsText[3] == cellsText[4] &&
+                cellsText[4] == cellsText[5] && cellsText[3] != '') {
+                isWin = true;
+                whoWon = cellsText[3];
+            } else if (cellsText[1] == cellsText[4] &&
+                cellsText[4] == cellsText[7] && cellsText[1] != '') {
+                isWin = true;
+                whoWon = cellsText[1];
+            } else if (cellsText[2] == cellsText[5] &&
+                cellsText[5] == cellsText[8] && cellsText[2] != '') {
+                isWin = true;
+                whoWon = cellsText[2];
+            } else if (cellsText[0] == cellsText[4] &&
+                cellsText[4] == cellsText[8] && cellsText[0] != '') {
+                isWin = true;
+                whoWon = cellsText[0];
+            } else if (cellsText[2] == cellsText[4] &&
+                cellsText[4] == cellsText[6] && cellsText[2] != '') {
+                isWin = true;
+                whoWon = cellsText[2];
+            }
+
+            if (isWin) {
+                alert('Выиграл ' + whoWon);
+            } else if (emptyCells == 0) { //проверка для ничьи
+                isWin = true;
+                alert('Ничья');
+            }
+
+        }
+    </script>

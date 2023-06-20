@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paint</title>
+    <style>
+        #canv{
+            /* width: 80%;
+            height: 70%; */
+            border: 1px solid black;
+            cursor: crosshair;
+        }
+    </style>
+</head>
+<body> 
+    <canvas id="canv" widht="500" height="500"></canvas>
+    
+    <input type="color", id="btnColor"></input>
+    <button id="asd"></button>
+    <script>
+        var canvas = document.getElementById('canv');
+        var context = canvas.getContext('2d');
+        var Isdraw = false, lastX = 0, lastY = 0;
+        
+        asd.onclick = () => {
+            document.location.reload();
+        }
+
+        canvas.addEventListener('mouseup', function(){
+            Isdraw= false;
+        });
+
+        canvas.addEventListener('mouseout', function(){
+            Isdraw= false;
+        });
+
+        canvas.addEventListener('mousedown', function(event){
+            Isdraw= true;
+            lastX = event.offsetX;
+            lastY = event.offsetY;
+        });
+
+        function drawline(event){
+            if (!Isdraw) return;
+                context.beginPath();
+                context.moveTo(lastX, lastY);
+                context.lineTo(event.offsetX, event.offsetY);
+                lastY = event.offsetY;
+                lastX = event.offsetX;
+                context.stroke();
+            }
+            function reload1(){
+
+            }
+
+        canvas.addEventListener('mousemove', drawline);
+    </script>
+    
+</body>
+</html>
